@@ -1,94 +1,46 @@
-const products = [
-  {
-    id: 1,
-    name: "Smartphone",
-    category: "electronics",
-    price: 199,
-    image: "https://via.placeholder.com/200x150?text=Smartphone"
-  },
-  {
-    id: 2,
-    name: "Laptop",
-    category: "electronics",
-    price: 599,
-    image: "https://via.placeholder.com/200x150?text=Laptop"
-  },
-  {
-    id: 3,
-    name: "T-Shirt",
-    category: "clothing",
-    price: 25,
-    image: "https://via.placeholder.com/200x150?text=T-Shirt"
-  },
-  {
-    id: 4,
-    name: "Jeans",
-    category: "clothing",
-    price: 60,
-    image: "https://via.placeholder.com/200x150?text=Jeans"
-  },
-  {
-    id: 5,
-    name: "Novel",
-    category: "books",
-    price: 15,
-    image: "https://via.placeholder.com/200x150?text=Book"
-  },
-  {
-    id: 6,
-    name: "Headphones",
-    category: "electronics",
-    price: 85,
-    image: "https://via.placeholder.com/200x150?text=Headphones"
-  }
-];
-
-const productGrid = document.getElementById("productGrid");
-const categoryFilter = document.getElementById("categoryFilter");
-const priceFilter = document.getElementById("priceFilter");
-
-function displayProducts(productsToShow) {
-  productGrid.innerHTML = "";
-
-  if (productsToShow.length === 0) {
-    productGrid.innerHTML = "<p>No products found.</p>";
-    return;
-  }
-
-  productsToShow.forEach(product => {
-    const card = document.createElement("div");
-    card.className = "product-card";
-    card.innerHTML = `
-      <img src="${product.image}" alt="${product.name}" />
-      <h3>${product.name}</h3>
-      <p>Category: ${product.category}</p>
-      <p>Price: $${product.price}</p>
-    `;
-    productGrid.appendChild(card);
-  });
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
 }
 
-function filterProducts() {
-  const category = categoryFilter.value;
-  const price = priceFilter.value;
-
-  let filtered = [...products];
-
-  if (category !== "all") {
-    filtered = filtered.filter(p => p.category === category);
-  }
-
-  if (price !== "all") {
-    const [min, max] = price.split("-").map(Number);
-    filtered = filtered.filter(p => p.price >= min && p.price <= max);
-  }
-
-  displayProducts(filtered);
+h1 {
+  text-align: center;
 }
 
-// Initial load
-displayProducts(products);
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
 
-// Event listeners
-categoryFilter.addEventListener("change", filterProducts);
-priceFilter.addEventListener("change", filterProducts);
+.filters select {
+  padding: 5px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 0 20px;
+}
+
+.product-card {
+  border: 1px solid #ccc;
+  padding: 15px;
+  text-align: center;
+  border-radius: 8px;
+  transition: 0.3s;
+  background-color: #f9f9f9;
+}
+
+.product-card:hover {
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.product-card img {
+  width: 100%;
+  max-height: 150px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
